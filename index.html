@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f8eef1" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <title>웨딩홀 비교</title>
+  <style>
+    :root{
+      --bg:#fff9fb;
+      --card:#ffffff;
+      --line:#eadde2;
+      --text:#2d2528;
+      --sub:#786b70;
+      --accent:#a85f78;
+      --accent-soft:#f5e4ea;
+      --danger:#b34a4a;
+      --shadow:0 8px 24px rgba(78,47,58,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{
+      max-width:760px;
+      margin:0 auto;
+      padding:20px 14px 110px;
+    }
+    h1{font-size:26px;margin:4px 0 6px}
+    .desc{color:var(--sub);font-size:14px;line-height:1.5;margin-bottom:18px}
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:16px;
+      margin-bottom:16px;
+    }
+    .section-title{
+      font-size:18px;
+      font-weight:800;
+      margin:0 0 12px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .full{grid-column:1/-1}
+    label{display:block;font-size:13px;color:var(--sub);margin:0 0 6px}
+    input, select, textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px;
+      font-size:16px;
+      background:#fff;
+      color:var(--text);
+      outline:none;
+    }
+    input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+    textarea{min-height:76px;resize:vertical}
+    .ratings{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+    button{
+      border:0;
+      border-radius:12px;
+      padding:13px 15px;
+      font-size:15px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .primary{background:var(--accent);color:white;width:100%;margin-top:14px}
+    .secondary{background:var(--accent-soft);color:var(--accent)}
+    .danger{background:#fbeaea;color:var(--danger)}
+    .toolbar{
+      display:flex;
+      gap:8px;
+      margin-bottom:12px;
+    }
+    .toolbar button{flex:1}
+    .empty{
+      padding:30px 10px;
+      text-align:center;
+      color:var(--sub);
+      border:1px dashed var(--line);
+      border-radius:16px;
+    }
+    .hall{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:15px;
+      background:#fff;
+      margin-bottom:12px;
+    }
+    .hall-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .rank{
+      min-width:34px;height:34px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--accent-soft);color:var(--accent);font-weight:900;
+    }
+    .hall-name{font-size:19px;font-weight:900;margin-bottom:4px}
+    .money{font-size:18px;font-weight:900;color:var(--accent)}
+    .small{font-size:13px;color:var(--sub)}
+    .score-row{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      margin:14px 0;
+    }
+    .score-box{
+      background:#faf4f6;
+      border-radius:12px;
+      padding:10px 6px;
+      text-align:center;
+    }
+    .score-box b{display:block;font-size:18px}
+    .score-box span{font-size:11px;color:var(--sub)}
+    .total-score{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:11px 12px;
+      border-radius:12px;
+      background:#f3e8ec;
+      font-weight:900;
+    }
+    .details{
+      margin-top:12px;
+      font-size:13px;
+      color:var(--sub);
+      line-height:1.7;
+    }
+    .actions{display:flex;gap:8px;margin-top:12px}
+    .actions button{flex:1;padding:10px}
+    .hint{
+      font-size:12px;color:var(--sub);line-height:1.5;margin-top:10px
+    }
+    .badge{
+      display:inline-block;
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      background:#f3e8ec;
+      color:var(--accent);
+      margin-left:6px;
+      vertical-align:2px;
+    }
+    @media(max-width:560px){
+      .grid{grid-template-columns:1fr}
+      .full{grid-column:auto}
+      .ratings{grid-template-columns:1fr 1fr 1fr}
+      .score-row{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>💍 웨딩홀 비교</h1>
+  <div class="desc">
+    식대·보증인원·대관료를 입력하면 총비용이 자동 계산되고,
+    가격이 낮을수록 가격 점수가 높게 매겨져요.
+  </div>
+
+  <div class="card">
+    <div class="section-title" id="formTitle">웨딩홀 추가</div>
+    <div class="grid">
+      <div class="full">
+        <label>웨딩홀 이름</label>
+        <input id="name" placeholder="예: 셀럽앤어셈" />
+      </div>
+      <div>
+        <label>1인 식대</label>
+        <input id="mealPrice" type="number" inputmode="numeric" placeholder="예: 85000" />
+      </div>
+      <div>
+        <label>보증 인원</label>
+        <input id="guarantee" type="number" inputmode="numeric" placeholder="예: 200" />
+      </div>
+      <div>
+        <label>홀 대관료</label>
+        <input id="hallFee" type="number" inputmode="numeric" placeholder="예: 5000000" />
+      </div>
+      <div>
+        <label>기타 부대비용</label>
+        <input id="extraFee" type="number" inputmode="numeric" placeholder="예: 1500000" />
+      </div>
+
+      <div class="full ratings">
+        <div>
+          <label>주차 평점</label>
+          <select id="parking">
+            <option value="1">1점</option><option value="2">2점</option>
+            <option value="3" selected>3점</option><option value="4">4점</option>
+            <option value="5">5점</option>
+          </select>
+        </div>
+        <div>
+          <label>홀 분위기</label>
+          <select id="atmosphere">
+            <option value="1">1점</option><option value="2">2점</option>
+            <option value="3" selected>3점</option><option value="4">4점</option>
+            <option value="5">5점</option>
+          </select>
+        </div>
+        <div>
+          <label>식사 평점</label>
+          <select id="food">
+            <option value="1">1점</option><option value="2">2점</option>
+            <option value="3" selected>3점</option><option value="4">4점</option>
+            <option value="5">5점</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="full">
+        <label>메모</label>
+        <textarea id="memo" placeholder="예: 역에서 가깝고 밝은 홀, 신부대기실 넓음"></textarea>
+      </div>
+    </div>
+    <button class="primary" id="saveBtn" onclick="saveHall()">저장하기</button>
+    <div class="hint">총비용 = 식대 × 보증인원 + 홀 대관료 + 기타 부대비용</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">비교 결과 <span class="badge" id="countBadge">0개</span></div>
+    <div class="toolbar">
+      <button class="secondary" onclick="setSort('score')">총점순</button>
+      <button class="secondary" onclick="setSort('price')">가격 낮은순</button>
+      <button class="secondary" onclick="setSort('name')">이름순</button>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+
+<script>
+  let halls = JSON.parse(localStorage.getItem('weddingHalls') || '[]');
+  let editId = null;
+  let sortMode = 'score';
+
+  const won = n => Number(n || 0).toLocaleString('ko-KR') + '원';
+
+  function getValue(id){
+    return document.getElementById(id).value;
+  }
+
+  function getNumber(id){
+    return Number(getValue(id)) || 0;
+  }
+
+  function totalCost(h){
+    return h.mealPrice * h.guarantee + h.hallFee + h.extraFee;
+  }
+
+  function priceScores(){
+    if (!halls.length) return {};
+    const costs = halls.map(totalCost);
+    const min = Math.min(...costs);
+    const max = Math.max(...costs);
+    const scores = {};
+
+    halls.forEach(h => {
+      const cost = totalCost(h);
+      if (min === max) {
+        scores[h.id] = 5;
+      } else {
+        const normalized = 5 - ((cost - min) / (max - min)) * 4;
+        scores[h.id] = Math.round(normalized * 10) / 10;
+      }
+    });
+    return scores;
+  }
+
+  function overallScore(h, pScores){
+    return Number(h.parking) + Number(h.atmosphere) + Number(h.food) + Number(pScores[h.id] || 0);
+  }
+
+  function saveHall(){
+    const name = getValue('name').trim();
+    if (!name) {
+      alert('웨딩홀 이름을 입력해줘!');
+      return;
+    }
+
+    const data = {
+      id: editId || Date.now(),
+      name,
+      mealPrice: getNumber('mealPrice'),
+      guarantee: getNumber('guarantee'),
+      hallFee: getNumber('hallFee'),
+      extraFee: getNumber('extraFee'),
+      parking: getNumber('parking'),
+      atmosphere: getNumber('atmosphere'),
+      food: getNumber('food'),
+      memo: getValue('memo').trim()
+    };
+
+    if (editId) {
+      halls = halls.map(h => h.id === editId ? data : h);
+    } else {
+      halls.push(data);
+    }
+
+    localStorage.setItem('weddingHalls', JSON.stringify(halls));
+    resetForm();
+    render();
+  }
+
+  function editHall(id){
+    const h = halls.find(x => x.id === id);
+    if (!h) return;
+    editId = id;
+    document.getElementById('formTitle').textContent = '웨딩홀 수정';
+    document.getElementById('saveBtn').textContent = '수정 저장하기';
+    ['name','mealPrice','guarantee','hallFee','extraFee','parking','atmosphere','food','memo']
+      .forEach(key => document.getElementById(key).value = h[key] ?? '');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function deleteHall(id){
+    if (!confirm('이 웨딩홀을 삭제할까?')) return;
+    halls = halls.filter(h => h.id !== id);
+    localStorage.setItem('weddingHalls', JSON.stringify(halls));
+    if (editId === id) resetForm();
+    render();
+  }
+
+  function resetForm(){
+    editId = null;
+    document.getElementById('formTitle').textContent = '웨딩홀 추가';
+    document.getElementById('saveBtn').textContent = '저장하기';
+    ['name','mealPrice','guarantee','hallFee','extraFee','memo'].forEach(id => document.getElementById(id).value = '');
+    ['parking','atmosphere','food'].forEach(id => document.getElementById(id).value = '3');
+  }
+
+  function setSort(mode){
+    sortMode = mode;
+    render();
+  }
+
+  function render(){
+    const list = document.getElementById('list');
+    document.getElementById('countBadge').textContent = halls.length + '개';
+
+    if (!halls.length) {
+      list.innerHTML = '<div class="empty">아직 저장된 웨딩홀이 없어.<br>위에서 첫 번째 홀을 추가해봐!</div>';
+      return;
+    }
+
+    const pScores = priceScores();
+    let data = [...halls];
+
+    if (sortMode === 'price') data.sort((a,b) => totalCost(a)-totalCost(b));
+    else if (sortMode === 'name') data.sort((a,b) => a.name.localeCompare(b.name, 'ko'));
+    else data.sort((a,b) => overallScore(b,pScores)-overallScore(a,pScores));
+
+    list.innerHTML = data.map((h, index) => {
+      const total = totalCost(h);
+      const p = pScores[h.id];
+      const overall = overallScore(h, pScores);
+
+      return `
+      <div class="hall">
+        <div class="hall-top">
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <div class="rank">${index+1}</div>
+            <div>
+              <div class="hall-name">${escapeHtml(h.name)}</div>
+              <div class="money">${won(total)}</div>
+              <div class="small">보증 ${h.guarantee.toLocaleString()}명 기준</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="score-row">
+          <div class="score-box"><b>${h.parking}</b><span>주차</span></div>
+          <div class="score-box"><b>${h.atmosphere}</b><span>분위기</span></div>
+          <div class="score-box"><b>${h.food}</b><span>식사</span></div>
+          <div class="score-box"><b>${p}</b><span>가격</span></div>
+        </div>
+
+        <div class="total-score">
+          <span>총점</span>
+          <span>${overall.toFixed(1)} / 20점</span>
+        </div>
+
+        <div class="details">
+          식대 ${won(h.mealPrice)} × ${h.guarantee.toLocaleString()}명<br>
+          대관료 ${won(h.hallFee)} · 기타 ${won(h.extraFee)}
+          ${h.memo ? `<br>메모: ${escapeHtml(h.memo)}` : ''}
+        </div>
+
+        <div class="actions">
+          <button class="secondary" onclick="editHall(${h.id})">수정</button>
+          <button class="danger" onclick="deleteHall(${h.id})">삭제</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function escapeHtml(text){
+    return String(text).replace(/[&<>"']/g, m => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+    }[m]));
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+
+  render();
+</script>
+</body>
+</html>
