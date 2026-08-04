@@ -3,278 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f8eef1">
-<title>웨딩홀 비교 v6</title>
+<meta name="theme-color" content="#f7e9ee">
+<title>웨딩홀 비교 v6 개선판</title>
 <style>
-:root{
-  --bg:#fff9fb;--card:#fff;--ink:#30272b;--muted:#806f75;--line:#eadde1;
-  --point:#b86f85;--point-dark:#8f4f64;--soft:#f7e9ee;--good:#24664f;
-  --shadow:0 10px 30px rgba(91,49,64,.09);--radius:20px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;color:var(--ink);
-  background:linear-gradient(180deg,#f9eef2 0,#fff9fb 230px);
-  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",Segoe UI,sans-serif;
-  line-height:1.45;
-}
-button,input,select,textarea{font:inherit} button{cursor:pointer}
-.wrap{max-width:1180px;margin:auto;padding:20px 14px 80px}
-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:8px 0 17px}
-h1{font-size:clamp(27px,7vw,42px);margin:0 0 7px;letter-spacing:-1.6px;line-height:1.08}
-.sub{color:var(--muted);font-size:13px}
-.badge{white-space:nowrap;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 11px;box-shadow:var(--shadow);font-weight:900;color:var(--point-dark)}
-.tabs{position:sticky;top:0;z-index:30;display:flex;gap:7px;overflow:auto;padding:9px 0 12px;background:linear-gradient(180deg,rgba(255,249,251,.98),rgba(255,249,251,.9),transparent);backdrop-filter:blur(9px)}
-.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 14px;font-weight:900;color:var(--muted);white-space:nowrap}
-.tab.active{background:var(--point);border-color:var(--point);color:#fff}
-.panel{display:none}.panel.active{display:block}
-.card{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:17px;margin:12px 0}
-.card h2,.card h3{margin:0 0 12px}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:11px}
-.field{grid-column:span 3}.field.wide{grid-column:span 6}.field.full{grid-column:1/-1}
-label{display:block;font-weight:900;font-size:12px;margin-bottom:6px;color:#605156}
-input,select,textarea{width:100%;border:1px solid #ddcfd4;background:#fff;border-radius:13px;padding:11px 12px;color:var(--ink);outline:none}
-input:focus,select:focus,textarea:focus{border-color:var(--point);box-shadow:0 0 0 3px rgba(184,111,133,.13)}
-textarea{min-height:82px;resize:vertical}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.btn{border:0;border-radius:13px;padding:11px 15px;font-weight:950;background:var(--point);color:#fff}
-.btn.secondary{background:#fff;color:var(--point-dark);border:1px solid var(--line)}
-.btn.dark{background:#4d3b42}.btn.danger{background:#fff1f2;color:#b34f57;border:1px solid #f0cbd0}
-.btn.small{padding:7px 10px;border-radius:10px;font-size:12px}
-.hint{padding:11px 13px;background:var(--soft);border-radius:13px;color:#71535e;font-size:12px}
-.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.metric{padding:15px;border-radius:17px;background:#fff;border:1px solid var(--line)}
-.metric .k{font-size:11px;color:var(--muted);font-weight:900}.metric .v{font-size:23px;font-weight:950;margin-top:4px;letter-spacing:-1px}
-.rank-list{display:grid;gap:10px}
-.rank-item{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:11px;padding:14px;border:1px solid var(--line);border-radius:17px;background:#fff}
-.rank-no{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:var(--soft);font-weight:950;color:var(--point-dark)}
-.rank-item:first-child .rank-no{background:#f2d58d;color:#6b5011}
-.rank-name{font-weight:950;font-size:16px}.rank-meta{font-size:11px;color:var(--muted);margin-top:3px}
-.score{font-size:21px;font-weight:950;color:var(--point-dark);text-align:right}.score small{display:block;font-size:10px;color:var(--muted)}
-.compare-toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.table-wrap{overflow:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:17px;background:#fff;max-height:72vh}
-table{border-collapse:separate;border-spacing:0;table-layout:fixed;width:max-content;min-width:100%}
-th,td{padding:10px 9px;border-bottom:1px solid #eee3e6;border-right:1px solid #f2e9ec;text-align:center;font-size:12px;vertical-align:top;word-break:keep-all;overflow-wrap:anywhere}
-th{position:sticky;top:0;background:#f8edf1;z-index:4;font-size:12px}
-th:not(:first-child),td:not(:first-child){width:180px;min-width:180px;max-width:180px}
-th:first-child,td:first-child{
-  position:sticky;left:0;z-index:3;text-align:left;font-weight:950;
-  width:78px;min-width:78px;max-width:78px;padding:10px 7px;
-  background:#fff;white-space:normal;word-break:keep-all;box-shadow:3px 0 6px rgba(76,54,62,.06)
-}
-th:first-child{background:#f8edf1;z-index:6}
-tr:last-child td{border-bottom:0}.best{background:#eef9f4!important;color:var(--good);font-weight:950}
-.long-cell{text-align:left;line-height:1.5}
-.hall-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
-.hall-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px}
-.hall-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}.hall-title strong{font-size:17px}
-.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{font-size:10px;padding:5px 8px;border-radius:999px;background:#f7eef1;color:#725662;font-weight:900}
-.kv{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px;font-size:12px}.kv div{padding:8px;background:#fcf8f9;border-radius:10px}
-.kv b{display:block;color:var(--muted);font-size:10px;margin-bottom:2px}
-.empty{text-align:center;color:var(--muted);padding:32px 10px}
-.weights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.weight-box{border:1px solid var(--line);border-radius:15px;padding:11px;background:#fff}
-.weight-top{display:flex;justify-content:space-between;font-size:12px;font-weight:950;margin-bottom:7px}
-input[type=range]{padding:0;border:0;box-shadow:none;accent-color:var(--point)}
-.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#382d31;color:#fff;padding:11px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:99;font-weight:900;font-size:12px}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.footer-note{text-align:center;color:var(--muted);font-size:11px;margin-top:23px}
-@media(max-width:820px){.field{grid-column:span 6}.field.wide{grid-column:1/-1}.summary-grid{grid-template-columns:1fr 1fr}.hall-cards{grid-template-columns:1fr}.weights{grid-template-columns:1fr 1fr}}
-@media(max-width:520px){
-  .wrap{padding:14px 10px 70px}.badge{font-size:11px;padding:7px 8px}.field,.field.wide{grid-column:1/-1}
-  .summary-grid{gap:7px}.metric{padding:11px}.metric .v{font-size:19px}
-  .rank-item{grid-template-columns:39px 1fr auto;padding:11px;gap:8px}.rank-no{width:34px;height:34px}
-  .rank-name{font-size:14px}.score{font-size:18px}.weights{grid-template-columns:1fr}
-  th:not(:first-child),td:not(:first-child){width:168px;min-width:168px;max-width:168px}
-}
-@media print{
-  body{background:#fff}.wrap{max-width:none;padding:0}.tabs,header .badge,#dashboard,#add,#list,#settings,.compare-toolbar .actions,.footer-note{display:none!important}
-  header{display:block;margin:0 0 12px}.panel{display:none!important}#compare{display:block!important}.card{box-shadow:none;border:0;padding:0;margin:0}
-  .table-wrap{overflow:visible;max-height:none;border:0}.hint{display:none}
-  table{width:100%;table-layout:fixed}th,td{position:static!important;font-size:9px;padding:6px 4px}
-  th:first-child,td:first-child{width:9%!important;min-width:0!important;max-width:none!important;box-shadow:none}
-  th:not(:first-child),td:not(:first-child){width:auto!important;min-width:0!important;max-width:none!important}
-}
+:root{--bg:#fff9fb;--card:#fff;--ink:#30272b;--muted:#806f75;--line:#eadde1;--point:#b86f85;--point2:#8f4f64;--soft:#f7e9ee;--green:#25644f;--yellow:#8b6917;--red:#a4424a;--shadow:0 10px 28px rgba(91,49,64,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#f7e9ee 0,#fff9fb 240px);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;line-height:1.45}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:18px 12px 80px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:8px 2px 16px}h1{font-size:clamp(28px,7vw,42px);line-height:1.05;margin:0 0 7px;letter-spacing:-1.7px}.sub{font-size:12px;color:var(--muted)}
+.badge{white-space:nowrap;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 11px;box-shadow:var(--shadow);font-weight:900;color:var(--point2)}
+.tabs{position:sticky;top:0;z-index:30;display:flex;gap:7px;overflow:auto;padding:9px 0 12px;background:linear-gradient(180deg,rgba(255,249,251,.98),rgba(255,249,251,.88),transparent);backdrop-filter:blur(9px)}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:900;color:var(--muted);white-space:nowrap}.tab.active{background:var(--point);color:#fff;border-color:var(--point)}
+.panel{display:none}.panel.active{display:block}.card{background:rgba(255,255,255,.98);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:16px;margin:12px 0}.card h2,.card h3{margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}.field{grid-column:span 3}.field.wide{grid-column:span 6}.field.full{grid-column:1/-1}
+label{display:block;font-weight:900;font-size:12px;margin-bottom:6px;color:#605156}input,select,textarea{width:100%;border:1px solid #ddcfd4;background:#fff;border-radius:13px;padding:11px 12px;color:var(--ink);outline:none}textarea{min-height:80px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--point);box-shadow:0 0 0 3px rgba(184,111,133,.13)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.btn{border:0;border-radius:13px;padding:10px 14px;font-weight:950;background:var(--point);color:#fff}.btn.secondary{background:#fff;color:var(--point2);border:1px solid var(--line)}.btn.dark{background:#49373e}.btn.danger{background:#fff1f2;color:var(--red);border:1px solid #efcbd0}.btn.small{padding:7px 10px;border-radius:10px;font-size:12px}
+.hint{padding:11px 13px;background:var(--soft);border-radius:13px;color:#71535e;font-size:12px}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.metric{padding:14px;border-radius:17px;background:#fff;border:1px solid var(--line)}.metric .k{font-size:11px;color:var(--muted);font-weight:900}.metric .v{font-size:21px;font-weight:950;margin-top:4px;letter-spacing:-.8px}
+.rank-list,.recommend-list{display:grid;gap:10px}.rank{display:grid;grid-template-columns:45px 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:17px;padding:13px}.rank-no{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-weight:950;color:var(--point2)}.rank:first-child .rank-no{background:#f4d995;color:#694e0f}.rank-name{font-weight:950}.rank-meta{font-size:11px;color:var(--muted);margin-top:3px}.score{font-size:20px;font-weight:950;color:var(--point2);text-align:right}.score small{display:block;font-size:9px;color:var(--muted)}
+.ai-card{border:1px solid var(--line);border-radius:18px;padding:15px;background:linear-gradient(135deg,#fff,#fff8fb)}.ai-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.ai-name{font-size:19px;font-weight:950}.decision{font-size:11px;font-weight:950;padding:6px 9px;border-radius:999px;white-space:nowrap}.decision.good{background:#e8f7f0;color:var(--green)}.decision.wait{background:#fff4d9;color:var(--yellow)}.decision.bad{background:#fff0f1;color:var(--red)}
+.ai-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.ai-box{background:#faf6f8;border-radius:14px;padding:11px;font-size:12px}.ai-box b{display:block;margin-bottom:5px}.ai-box ul{padding-left:18px;margin:0}.ai-box li{margin:4px 0}
+.profile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.profile-item{border:1px solid var(--line);border-radius:15px;padding:11px;background:#fff}.profile-item label{margin-bottom:7px}
+.check-head{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.check-progress{font-weight:950;color:var(--point2)}.check-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:12px}.check-group{border:1px solid var(--line);border-radius:17px;padding:13px}.check-group h3{font-size:14px;margin:0 0 9px}.check-item{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed #eee1e5;font-size:12px}.check-item:last-child{border-bottom:0}.check-item input{width:19px;height:19px;accent-color:var(--point);flex:0 0 auto;margin-top:0}.check-item span{flex:1}.check-item.done span{text-decoration:line-through;color:#9a8b90}
+.hall-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.hall-card{border:1px solid var(--line);border-radius:18px;padding:14px}.hall-title{display:flex;justify-content:space-between;gap:8px}.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.chip{font-size:10px;padding:5px 8px;border-radius:999px;background:var(--soft);color:#725662;font-weight:900}.kv{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px;font-size:12px}.kv div{padding:8px;background:#fcf8f9;border-radius:10px}.kv b{display:block;color:var(--muted);font-size:10px}
+.table-wrap{overflow:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:17px;max-height:72vh}table{border-collapse:separate;border-spacing:0;table-layout:fixed;width:max-content;min-width:100%}th,td{padding:10px 9px;border-bottom:1px solid #eee3e6;border-right:1px solid #f2e9ec;text-align:center;font-size:12px;vertical-align:top;overflow-wrap:anywhere;word-break:keep-all}th{position:sticky;top:0;background:#f8edf1;z-index:4}th:not(:first-child),td:not(:first-child){width:180px;min-width:180px;max-width:180px}th:first-child,td:first-child{position:sticky;left:0;z-index:3;text-align:left;font-weight:950;width:78px;min-width:78px;max-width:78px;padding:10px 7px;background:#fff;box-shadow:3px 0 6px rgba(76,54,62,.06)}th:first-child{background:#f8edf1;z-index:6}.best{background:#eef9f4!important;color:var(--green);font-weight:950}.long{text-align:left;line-height:1.5}
+.weights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.weight{border:1px solid var(--line);border-radius:15px;padding:11px}.weight-top{display:flex;justify-content:space-between;font-size:12px;font-weight:950}.weight input{padding:0;border:0;accent-color:var(--point)}
+.empty{text-align:center;color:var(--muted);padding:30px}.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#382d31;color:#fff;padding:11px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:99;font-weight:900;font-size:12px}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:820px){.field{grid-column:span 6}.field.wide{grid-column:1/-1}.summary,.profile-grid{grid-template-columns:1fr 1fr}.hall-cards,.check-groups{grid-template-columns:1fr}.weights{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.wrap{padding:14px 10px 70px}.badge{font-size:10px}.field,.field.wide{grid-column:1/-1}.metric{padding:11px}.metric .v{font-size:18px}.rank{grid-template-columns:38px 1fr auto;padding:11px}.rank-no{width:33px;height:33px}.ai-cols{grid-template-columns:1fr}.weights{grid-template-columns:1fr}th:not(:first-child),td:not(:first-child){width:168px;min-width:168px;max-width:168px}}
+@media print{body{background:#fff}.tabs,.badge,#dashboard,#add,#recommend,#checklist,#list,#settings,.no-print{display:none!important}.panel{display:none!important}#compare{display:block!important}.card{box-shadow:none;border:0;padding:0}.table-wrap{overflow:visible;max-height:none;border:0}table{width:100%;table-layout:fixed}th,td{position:static!important;font-size:8px;padding:5px 3px}th:first-child,td:first-child{width:9%!important;min-width:0!important;max-width:none!important;box-shadow:none}th:not(:first-child),td:not(:first-child){width:auto!important;min-width:0!important;max-width:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header>
-  <div><h1>웨딩홀 비교 <span style="color:var(--point)">v6</span></h1><div class="sub">가격·교통·식사·홀 분위기와 투어 메모를 한눈에 비교해요.</div></div>
-  <div class="badge">💍 내 선택 도우미</div>
-</header>
-
+<header><div><h1>웨딩홀 비교 <span style="color:var(--point)">v6+</span></h1><div class="sub">비교표 · 스마트 추천 · 홀별 투어 체크리스트</div></div><div class="badge">💍 개선판</div></header>
 <nav class="tabs">
-  <button class="tab active" data-tab="dashboard">순위</button>
-  <button class="tab" data-tab="add">홀 입력</button>
-  <button class="tab" data-tab="compare">비교표</button>
-  <button class="tab" data-tab="list">전체 목록</button>
-  <button class="tab" data-tab="settings">가중치</button>
+<button class="tab active" data-tab="dashboard">순위</button><button class="tab" data-tab="recommend">AI 추천</button><button class="tab" data-tab="checklist">체크리스트</button><button class="tab" data-tab="add">홀 입력</button><button class="tab" data-tab="compare">비교표</button><button class="tab" data-tab="list">목록</button><button class="tab" data-tab="settings">설정</button>
 </nav>
 
 <section id="dashboard" class="panel active">
-  <div class="summary-grid">
-    <div class="metric"><div class="k">등록된 홀</div><div class="v" id="countHall">0</div></div>
-    <div class="metric"><div class="k">현재 1위</div><div class="v" id="topHall" style="font-size:16px">-</div></div>
-    <div class="metric"><div class="k">최저 총비용</div><div class="v" id="minPrice" style="font-size:17px">-</div></div>
-    <div class="metric"><div class="k">평균 점수</div><div class="v" id="avgScore">-</div></div>
-  </div>
-  <div class="card"><h2>종합 순위</h2><div class="hint" style="margin-bottom:12px">총비용은 낮을수록, 나머지 평점은 높을수록 높은 점수를 받아요.</div><div id="rankList" class="rank-list"></div></div>
+<div class="summary"><div class="metric"><div class="k">등록된 홀</div><div class="v" id="count">0</div></div><div class="metric"><div class="k">현재 1위</div><div class="v" id="top" style="font-size:15px">-</div></div><div class="metric"><div class="k">최저 총비용</div><div class="v" id="min" style="font-size:16px">-</div></div><div class="metric"><div class="k">체크 완료</div><div class="v" id="checked">0%</div></div></div>
+<div class="card"><h2>종합 순위</h2><div class="hint" style="margin-bottom:12px">가격은 낮을수록, 나머지 평점은 높을수록 유리해요.</div><div id="rankList" class="rank-list"></div></div>
 </section>
 
-<section id="add" class="panel">
-<div class="card">
-<h2 id="formTitle">웨딩홀 정보 입력</h2>
-<form id="hallForm"><input type="hidden" id="editId">
-<div class="grid">
-  <div class="field wide"><label>웨딩홀 이름 *</label><input id="name" required placeholder="예: 셀럽앤어셈"></div>
-  <div class="field"><label>지역 / 역</label><input id="location" placeholder="예: 강남구청역"></div>
-  <div class="field"><label>홀 타입</label><select id="hallType"><option>밝은 홀</option><option>어두운 홀</option><option>채플형</option><option>야외/가든</option><option>기타</option></select></div>
-  <div class="field"><label>보증 인원</label><input id="guarantee" type="number" min="0" placeholder="200"></div>
-  <div class="field"><label>식대 (원/인)</label><input id="mealPrice" type="number" min="0" step="1000" placeholder="80000"></div>
-  <div class="field"><label>대관료·꽃장식 등</label><input id="venueCost" type="number" min="0" step="100000" placeholder="10000000"></div>
-  <div class="field"><label>예상 총비용</label><input id="totalCost" type="number" min="0" step="100000" placeholder="자동 계산 가능"></div>
-  <div class="field"><label>교통 (1~10)</label><input id="transport" type="number" min="1" max="10" value="7"></div>
-  <div class="field"><label>식사 (1~10)</label><input id="food" type="number" min="1" max="10" value="7"></div>
-  <div class="field"><label>홀 분위기 (1~10)</label><input id="atmosphere" type="number" min="1" max="10" value="7"></div>
-  <div class="field"><label>주차 (1~10)</label><input id="parking" type="number" min="1" max="10" value="7"></div>
-  <div class="field"><label>신부대기실 (1~10)</label><input id="brideRoom" type="number" min="1" max="10" value="7"></div>
-  <div class="field"><label>동선·혼잡도 (1~10)</label><input id="flow" type="number" min="1" max="10" value="7"></div>
-  <div class="field"><label>서비스·상담 (1~10)</label><input id="service" type="number" min="1" max="10" value="7"></div>
-  <div class="field"><label>단독홀 여부</label><select id="exclusive"><option value="10">단독홀</option><option value="7">시간대 분리</option><option value="4">여러 홀 운영</option></select></div>
-  <div class="field"><label>예식 방식</label><select id="ceremony"><option>분리예식</option><option>동시예식</option><option>확인 필요</option></select></div>
-  <div class="field"><label>예식 간격</label><input id="interval" placeholder="예: 90분"></div>
-  <div class="field"><label>최대 수용 인원</label><input id="capacity" type="number" min="0" placeholder="예: 250"></div>
-  <div class="field"><label>상담 날짜</label><input id="visitDate" type="date"></div>
-  <div class="field wide"><label>장점</label><textarea id="pros" placeholder="밥이 맛있음, 역에서 가까움 등"></textarea></div>
-  <div class="field wide"><label>단점</label><textarea id="cons" placeholder="발렛주차, 홀이 큼 등"></textarea></div>
-  <div class="field full"><label>메모</label><textarea id="memo" placeholder="견적 조건, 계약 특전, 꼭 확인할 내용"></textarea></div>
-</div>
-<div class="actions"><button class="btn" type="submit">저장하기</button><button class="btn secondary" type="button" id="calcCost">총비용 계산</button><button class="btn secondary" type="button" id="resetForm">입력 초기화</button></div>
-</form></div></section>
-
-<section id="compare" class="panel">
-<div class="card">
-  <div class="compare-toolbar">
-    <div><h2 style="margin-bottom:4px">웨딩홀 비교표</h2><div class="sub">첫 열은 작게 고정되고, 웨딩홀 칸을 좌우로 밀어 볼 수 있어요.</div></div>
-    <div class="actions" style="margin:0"><button class="btn dark small" id="pdfBtn">PDF 저장 / 인쇄</button></div>
-  </div>
-  <div class="hint" style="margin-bottom:12px">최고 조건은 초록색으로 표시돼요. 가격은 가장 저렴한 곳이 최고예요.</div>
-  <div id="compareTable"></div>
-</div></section>
-
-<section id="list" class="panel">
-<div class="card">
-  <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap">
-    <h2 style="margin:0">전체 웨딩홀</h2>
-    <div class="actions" style="margin:0"><button class="btn secondary small" id="exportBtn">JSON 내보내기</button><button class="btn secondary small" id="importBtn">JSON 불러오기</button><button class="btn danger small" id="clearBtn">전체 삭제</button><input type="file" id="importFile" accept=".json" hidden></div>
-  </div>
-  <div id="hallCards" class="hall-cards" style="margin-top:13px"></div>
-</div></section>
-
-<section id="settings" class="panel">
-<div class="card"><h2>점수 가중치</h2><div class="hint" style="margin-bottom:12px">중요한 항목의 비중을 높이면 순위가 바로 바뀌어요.</div><div id="weightControls" class="weights"></div><div style="margin-top:13px">현재 합계: <b id="weightTotal">100</b></div><div class="actions"><button class="btn secondary" id="defaultWeights">기본값으로</button></div></div>
-<div class="card"><h3>데이터 저장</h3><div class="sub">입력 내용은 현재 브라우저에 저장돼요. 다른 기기로 옮길 때 JSON 내보내기/불러오기를 이용하세요.</div></div>
+<section id="recommend" class="panel">
+<div class="card"><h2>🤖 스마트 추천 기준</h2><div class="hint">인터넷 연결 없이 입력한 조건을 분석해 추천 이유와 계약 판단을 만들어요.</div><div class="profile-grid" style="margin-top:12px">
+<div class="profile-item"><label>선호 홀</label><select id="prefHall"><option value="bright">밝은 홀 우선</option><option value="dark">어두운 홀 우선</option><option value="any">상관없음</option></select></div>
+<div class="profile-item"><label>예상 하객 수</label><input id="guestCount" type="number" value="200"></div>
+<div class="profile-item"><label>최대 총예산</label><input id="maxBudget" type="number" value="27000000" step="100000"></div>
+<div class="profile-item"><label>최우선 항목</label><select id="priority"><option value="food">식사</option><option value="transport">교통</option><option value="atmosphere">홀 분위기</option><option value="cost">가격</option></select></div>
+</div><div class="actions"><button class="btn" id="analyzeBtn">추천 다시 분석</button></div></div>
+<div class="card"><h2>추천 결과</h2><div id="aiResults" class="recommend-list"></div></div>
 </section>
 
-<div class="footer-note">Wedding Hall Compare v6 · 계약 전 실제 견적과 운영 방식을 다시 확인하세요.</div>
-</div>
-<div class="toast" id="toast"></div>
+<section id="checklist" class="panel">
+<div class="card"><div class="check-head"><div><h2 style="margin-bottom:4px">투어 체크리스트</h2><div class="sub">웨딩홀별로 체크 상태와 메모가 따로 저장돼요.</div></div><div class="check-progress" id="checkProgress">0 / 0</div></div>
+<div style="margin-top:12px"><label>체크할 웨딩홀</label><select id="checkHall"></select></div>
+<div id="checkGroups" class="check-groups"></div>
+<div class="actions"><button class="btn secondary" id="addCustomCheck">직접 항목 추가</button><button class="btn danger" id="resetChecklist">이 홀 체크 초기화</button></div></div>
+<div class="card"><h3>투어 메모</h3><textarea id="tourMemo" placeholder="상담 견적, 담당자, 계약 특전, 느낌 등을 적어두세요."></textarea></div>
+</section>
+
+<section id="add" class="panel"><div class="card"><h2 id="formTitle">웨딩홀 정보 입력</h2><form id="hallForm"><input type="hidden" id="editId"><div class="grid">
+<div class="field wide"><label>웨딩홀 이름 *</label><input id="name" required></div><div class="field"><label>지역 / 역</label><input id="location"></div><div class="field"><label>홀 타입</label><select id="hallType"><option>밝은 홀</option><option>어두운 홀</option><option>채플형</option><option>기타</option></select></div>
+<div class="field"><label>보증 인원</label><input id="guarantee" type="number"></div><div class="field"><label>식대</label><input id="mealPrice" type="number" step="1000"></div><div class="field"><label>대관료·꽃장식 등</label><input id="venueCost" type="number" step="100000"></div><div class="field"><label>예상 총비용</label><input id="totalCost" type="number" step="100000"></div>
+<div class="field"><label>교통 (1~10)</label><input id="transport" type="number" min="1" max="10" value="7"></div><div class="field"><label>식사 (1~10)</label><input id="food" type="number" min="1" max="10" value="7"></div><div class="field"><label>홀 분위기 (1~10)</label><input id="atmosphere" type="number" min="1" max="10" value="7"></div><div class="field"><label>주차 (1~10)</label><input id="parking" type="number" min="1" max="10" value="7"></div>
+<div class="field"><label>신부대기실 (1~10)</label><input id="brideRoom" type="number" min="1" max="10" value="7"></div><div class="field"><label>동선 (1~10)</label><input id="flow" type="number" min="1" max="10" value="7"></div><div class="field"><label>상담·서비스 (1~10)</label><input id="service" type="number" min="1" max="10" value="7"></div><div class="field"><label>단독홀</label><select id="exclusive"><option value="10">단독홀</option><option value="7">시간대 분리</option><option value="4">여러 홀</option></select></div>
+<div class="field"><label>예식 방식</label><select id="ceremony"><option>분리예식</option><option>동시예식</option><option>확인 필요</option></select></div><div class="field"><label>예식 간격</label><input id="interval" placeholder="예: 90분"></div><div class="field"><label>최대 수용</label><input id="capacity" type="number"></div><div class="field"><label>상담 날짜</label><input id="visitDate" type="date"></div>
+<div class="field wide"><label>장점</label><textarea id="pros"></textarea></div><div class="field wide"><label>단점</label><textarea id="cons"></textarea></div><div class="field full"><label>메모</label><textarea id="memo"></textarea></div>
+</div><div class="actions"><button class="btn" type="submit">저장하기</button><button class="btn secondary" type="button" id="calcCost">총비용 계산</button><button class="btn secondary" type="button" id="resetForm">초기화</button></div></form></div></section>
+
+<section id="compare" class="panel"><div class="card"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><div><h2 style="margin-bottom:4px">비교표</h2><div class="sub">첫 열 고정 · 모바일 가로 스크롤</div></div><button class="btn dark small no-print" id="pdfBtn">PDF 저장 / 인쇄</button></div><div id="compareTable" style="margin-top:12px"></div></div></section>
+
+<section id="list" class="panel"><div class="card"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><h2 style="margin:0">전체 웨딩홀</h2><div class="actions" style="margin:0"><button class="btn secondary small" id="exportBtn">백업</button><button class="btn secondary small" id="importBtn">불러오기</button><button class="btn danger small" id="clearBtn">전체 삭제</button><input hidden type="file" id="importFile" accept=".json"></div></div><div id="hallCards" class="hall-cards" style="margin-top:12px"></div></div></section>
+
+<section id="settings" class="panel"><div class="card"><h2>점수 가중치</h2><div id="weights" class="weights"></div><div style="margin-top:12px">합계 <b id="weightTotal">100</b></div><div class="actions"><button class="btn secondary" id="defaultWeights">기본값</button></div></div></section>
+</div><div class="toast" id="toast"></div>
 
 <script>
-const STORE_KEY='weddingHallCompareV6', WEIGHT_KEY='weddingHallWeightsV6';
-const OLD_KEYS=['weddingHallCompareV5','weddingHallCompareV4','weddingHallCompareV3','weddingHalls'];
-const defaultWeights={totalCost:25,food:18,transport:15,atmosphere:15,parking:8,brideRoom:6,flow:6,service:4,exclusive:3};
-const weightLabels={totalCost:'총비용',food:'식사',transport:'교통',atmosphere:'홀 분위기',parking:'주차',brideRoom:'신부대기실',flow:'동선·혼잡도',service:'서비스',exclusive:'단독홀'};
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)], num=v=>Number(v)||0;
-const won=v=>num(v)?new Intl.NumberFormat('ko-KR').format(num(v))+'원':'-';
-const shortWon=v=>{v=num(v);if(!v)return'-';if(v>=1e8)return(v/1e8).toFixed(v%1e8?1:0)+'억';if(v>=1e4)return Math.round(v/1e4).toLocaleString()+'만';return v.toLocaleString()+'원'};
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-
-function loadData(){
-  let data=JSON.parse(localStorage.getItem(STORE_KEY)||'null');
-  if(Array.isArray(data)) return data;
-  for(const k of OLD_KEYS){
-    const old=JSON.parse(localStorage.getItem(k)||'null');
-    if(Array.isArray(old)){localStorage.setItem(STORE_KEY,JSON.stringify(old));return old}
-  }
-  return [seed('셀럽앤어셈','강남권','밝은 홀'),seed('엘블레스','양재권','밝은 홀'),seed('노블발렌티 삼성','삼성역권','어두운 홀'),seed('상록아트홀','강남권','밝은 홀')];
-}
-function seed(name,location,hallType){return{id:(crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random())),name,location,hallType,guarantee:'',mealPrice:'',venueCost:'',totalCost:'',transport:7,food:7,atmosphere:7,parking:7,brideRoom:7,flow:7,service:7,exclusive:7,ceremony:'확인 필요',interval:'',capacity:'',visitDate:'',pros:'',cons:'',memo:''}}
-let halls=loadData();
-let weights=JSON.parse(localStorage.getItem(WEIGHT_KEY)||'null')||JSON.parse(localStorage.getItem('weddingHallWeightsV3')||'null')||{...defaultWeights};
-
-function save(){localStorage.setItem(STORE_KEY,JSON.stringify(halls));localStorage.setItem(WEIGHT_KEY,JSON.stringify(weights))}
-function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1600)}
-function switchTab(id){$$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));$$('.panel').forEach(x=>x.classList.toggle('active',x.id===id));window.scrollTo({top:0,behavior:'smooth'})}
-$$('.tab').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
-
-function calcTotalFor(h){return num(h.totalCost)||num(h.venueCost)+num(h.guarantee)*num(h.mealPrice)}
-function rangeForCost(){const v=halls.map(calcTotalFor).filter(Boolean);return{min:Math.min(...v),max:Math.max(...v)}}
-function normalizeLow(v,min,max){if(!v)return 0;if(min===max)return 100;return 40+60*((max-v)/(max-min))}
-function scoreHall(h){
-  const costR=rangeForCost(), ratingKeys=['food','transport','atmosphere','parking','brideRoom','flow','service','exclusive'];
-  let weighted=0,totalW=0,cost=calcTotalFor(h);
-  if(cost){weighted+=normalizeLow(cost,costR.min,costR.max)*num(weights.totalCost);totalW+=num(weights.totalCost)}
-  for(const k of ratingKeys){const v=num(h[k]);if(v){weighted+=v*10*num(weights[k]);totalW+=num(weights[k])}}
-  return totalW?weighted/totalW:0;
-}
-function ranked(){return [...halls].map(h=>({...h,_score:scoreHall(h),_total:calcTotalFor(h)})).sort((a,b)=>b._score-a._score||a._total-b._total)}
-
-function renderDashboard(){
-  const r=ranked();$('#countHall').textContent=halls.length;$('#topHall').textContent=r[0]?.name||'-';
-  const prices=r.map(x=>x._total).filter(Boolean);$('#minPrice').textContent=prices.length?shortWon(Math.min(...prices)):'-';
-  $('#avgScore').textContent=r.length?(r.reduce((a,b)=>a+b._score,0)/r.length).toFixed(1):'-';
-  $('#rankList').innerHTML=r.length?r.map((h,i)=>`<div class="rank-item"><div class="rank-no">${i+1}</div><div><div class="rank-name">${esc(h.name)}</div><div class="rank-meta">${esc(h.location||'지역 미입력')} · ${esc(h.hallType||'-')} · ${h._total?shortWon(h._total):'총비용 미입력'}</div></div><div class="score">${h._score.toFixed(1)}<small>100점 만점</small></div></div>`).join(''):'<div class="empty">웨딩홀을 추가하면 순위가 표시돼요.</div>';
-}
-function rating(v){return num(v)?num(v).toFixed(0)+'/10':'-'}
-function renderCompare(){
-  const r=ranked();if(!r.length){$('#compareTable').innerHTML='<div class="empty">비교할 웨딩홀이 없어요.</div>';return}
-  const rows=[
-    ['종합 점수',h=>h._score.toFixed(1),'high','_score'],['예상 총비용',h=>won(h._total),'low','_total'],
-    ['식대',h=>won(h.mealPrice),'low','mealPrice'],['보증 인원',h=>h.guarantee?num(h.guarantee)+'명':'-','neutral','guarantee'],
-    ['교통',h=>rating(h.transport),'high','transport'],['식사',h=>rating(h.food),'high','food'],['홀 분위기',h=>rating(h.atmosphere),'high','atmosphere'],
-    ['주차',h=>rating(h.parking),'high','parking'],['신부대기실',h=>rating(h.brideRoom),'high','brideRoom'],['동선·혼잡도',h=>rating(h.flow),'high','flow'],
-    ['서비스',h=>rating(h.service),'high','service'],['단독홀',h=>rating(h.exclusive),'high','exclusive'],['홀 타입',h=>esc(h.hallType||'-'),'neutral','hallType'],
-    ['예식 방식',h=>esc(h.ceremony||'-'),'neutral','ceremony'],['예식 간격',h=>esc(h.interval||'-'),'neutral','interval'],['최대 수용',h=>h.capacity?num(h.capacity)+'명':'-','neutral','capacity'],
-    ['장점',h=>esc(h.pros||'-'),'neutral','pros'],['단점',h=>esc(h.cons||'-'),'neutral','cons'],['메모',h=>esc(h.memo||'-'),'neutral','memo']
-  ];
-  let html='<div class="table-wrap"><table><thead><tr><th>항목</th>'+r.map(h=>`<th>${esc(h.name)}</th>`).join('')+'</tr></thead><tbody>';
-  for(const [label,fmt,direction,key] of rows){
-    const vals=r.map(h=>num(h[key])).filter(v=>v>0),best=vals.length?(direction==='low'?Math.min(...vals):Math.max(...vals)):null;
-    html+=`<tr><td>${label}</td>`+r.map(h=>{const value=num(h[key]),cls=(direction!=='neutral'&&value&&value===best)?'best':'';const long=['pros','cons','memo'].includes(key)?' long-cell':'';return`<td class="${cls}${long}">${fmt(h)}</td>`}).join('')+'</tr>';
-  }
-  $('#compareTable').innerHTML=html+'</tbody></table></div>';
-}
-function renderCards(){
-  const r=ranked();$('#hallCards').innerHTML=r.length?r.map(h=>`<article class="hall-card"><div class="hall-title"><strong>${esc(h.name)}</strong><span class="chip">${h._score.toFixed(1)}점</span></div><div class="chips"><span class="chip">${esc(h.location||'지역 미입력')}</span><span class="chip">${esc(h.hallType||'-')}</span><span class="chip">${esc(h.ceremony||'-')}</span></div><div class="kv"><div><b>예상 총비용</b>${won(h._total)}</div><div><b>보증 인원</b>${h.guarantee?num(h.guarantee)+'명':'-'}</div><div><b>식대</b>${won(h.mealPrice)}</div><div><b>예식 간격</b>${esc(h.interval||'-')}</div></div>${h.pros?`<p style="font-size:12px"><b>장점</b> ${esc(h.pros)}</p>`:''}${h.cons?`<p style="font-size:12px"><b>단점</b> ${esc(h.cons)}</p>`:''}<div class="actions"><button class="btn secondary small" onclick="editHall('${h.id}')">수정</button><button class="btn danger small" onclick="deleteHall('${h.id}')">삭제</button></div></article>`).join(''):'<div class="empty">등록된 웨딩홀이 없어요.</div>';
-}
-function renderWeights(){
-  $('#weightControls').innerHTML=Object.entries(weightLabels).map(([k,label])=>`<div class="weight-box"><div class="weight-top"><span>${label}</span><span id="wv-${k}">${num(weights[k])}</span></div><input type="range" min="0" max="40" step="1" value="${num(weights[k])}" data-weight="${k}"></div>`).join('');
-  $$('[data-weight]').forEach(el=>el.oninput=e=>{const k=e.target.dataset.weight;weights[k]=num(e.target.value);$('#wv-'+k).textContent=weights[k];updateWeightTotal();save();renderAll(false)});
-  updateWeightTotal();
-}
-function updateWeightTotal(){$('#weightTotal').textContent=Object.values(weights).reduce((a,b)=>a+num(b),0)}
-function renderAll(includeWeights=true){renderDashboard();renderCompare();renderCards();if(includeWeights)renderWeights()}
-
-$('#calcCost').onclick=()=>{const total=num($('#venueCost').value)+num($('#guarantee').value)*num($('#mealPrice').value);$('#totalCost').value=total||'';toast(total?'총비용을 계산했어요.':'식대·보증인원 또는 대관료를 입력해 주세요.')};
-$('#hallForm').onsubmit=e=>{
-  e.preventDefault();const id=$('#editId').value;
-  const data={id:id||(crypto.randomUUID?crypto.randomUUID():String(Date.now())),name:$('#name').value.trim(),location:$('#location').value.trim(),hallType:$('#hallType').value,guarantee:$('#guarantee').value,mealPrice:$('#mealPrice').value,venueCost:$('#venueCost').value,totalCost:$('#totalCost').value,transport:$('#transport').value,food:$('#food').value,atmosphere:$('#atmosphere').value,parking:$('#parking').value,brideRoom:$('#brideRoom').value,flow:$('#flow').value,service:$('#service').value,exclusive:$('#exclusive').value,ceremony:$('#ceremony').value,interval:$('#interval').value.trim(),capacity:$('#capacity').value,visitDate:$('#visitDate').value,pros:$('#pros').value.trim(),cons:$('#cons').value.trim(),memo:$('#memo').value.trim()};
-  if(!data.totalCost)data.totalCost=calcTotalFor(data)||'';
-  halls=id?halls.map(h=>h.id===id?data:h):[...halls,data];save();resetForm();renderAll();switchTab('dashboard');toast(id?'수정했어요.':'웨딩홀을 추가했어요.');
+const K='weddingHallCompareV6Plus',WK='weddingHallWeightsV6Plus',PK='weddingHallProfileV6Plus',CK='weddingHallChecklistV6Plus';
+const oldKeys=['weddingHallCompareV6','weddingHallCompareV5','weddingHallCompareV4','weddingHallCompareV3','weddingHalls'];
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],num=v=>Number(v)||0,esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const won=v=>num(v)?new Intl.NumberFormat('ko-KR').format(num(v))+'원':'-',shortWon=v=>num(v)>=1e8?(num(v)/1e8).toFixed(1).replace('.0','')+'억':num(v)>=1e4?Math.round(num(v)/1e4).toLocaleString()+'만':'-';
+const defaults={totalCost:25,food:18,transport:15,atmosphere:15,parking:8,brideRoom:6,flow:6,service:4,exclusive:3};
+const wlabels={totalCost:'총비용',food:'식사',transport:'교통',atmosphere:'홀 분위기',parking:'주차',brideRoom:'신부대기실',flow:'동선',service:'상담·서비스',exclusive:'단독홀'};
+const baseChecks={
+'계약·비용':['최종 견적에 포함된 항목 확인','계약금과 잔금 일정','취소·환불 규정','식대 인상 가능 여부','보증 인원 변경 마감일','당일 추가 인원 정산 방식','계약 특전과 서비스 항목'],
+'홀·연출':['버진로드 길이와 단차','생화·조화 비율','꽃장식 변경 가능 여부','조명 밝기와 사진 색감','음향·마이크 테스트','스크린과 영상 규격','신부 입장 동선'],
+'하객·교통':['지하철역 도보 거리','셔틀버스 운영 여부','무료 주차 시간','동시 예식 혼잡도','엘리베이터 대기','연회장 좌석과 동선','장애인·노약자 이동'],
+'신랑신부·혼주':['신부대기실 단독 사용','신부대기실 화장실','혼주 대기실','폐백실 사용 여부','메이크업실·탈의실','짐 보관 장소','예식 전 리허설 시간'],
+'식사':['시식 가능 여부','메뉴 구성과 리필','음료·주류 포함 범위','어린이 식대 기준','혼주 식사 시간','알레르기 대응','답례품 대체 가능 여부']
 };
-function resetForm(){$('#hallForm').reset();$('#editId').value='';$('#formTitle').textContent='웨딩홀 정보 입력';['transport','food','atmosphere','parking','brideRoom','flow','service'].forEach(id=>$('#'+id).value=7);$('#exclusive').value=10}
-$('#resetForm').onclick=resetForm;
-window.editHall=id=>{const h=halls.find(x=>x.id===id);if(!h)return;Object.entries(h).forEach(([k,v])=>{const el=$('#'+k);if(el)el.value=v??''});$('#editId').value=h.id;$('#formTitle').textContent='웨딩홀 정보 수정';switchTab('add')};
-window.deleteHall=id=>{const h=halls.find(x=>x.id===id);if(!confirm(`${h?.name||'이 항목'}을 삭제할까요?`))return;halls=halls.filter(x=>x.id!==id);save();renderAll();toast('삭제했어요.')};
-$('#clearBtn').onclick=()=>{if(!confirm('등록된 웨딩홀을 모두 삭제할까요?'))return;halls=[];save();renderAll();toast('전체 삭제했어요.')};
-$('#defaultWeights').onclick=()=>{weights={...defaultWeights};save();renderAll();toast('기본 가중치로 돌렸어요.')};
-$('#pdfBtn').onclick=()=>{switchTab('compare');setTimeout(()=>window.print(),100)};
-$('#exportBtn').onclick=()=>{const payload={version:6,exportedAt:new Date().toISOString(),halls,weights};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='weddinghall-v6-data.json';a.click();URL.revokeObjectURL(a.href)};
-$('#importBtn').onclick=()=>$('#importFile').click();
-$('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.halls))throw Error();halls=d.halls;if(d.weights)weights={...defaultWeights,...d.weights};save();renderAll();toast('데이터를 불러왔어요.')}catch{alert('올바른 웨딩홀 JSON 파일이 아니에요.')}e.target.value=''};
+function seed(n,l,t){return{id:(crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random()+''),name:n,location:l,hallType:t,guarantee:'',mealPrice:'',venueCost:'',totalCost:'',transport:7,food:7,atmosphere:7,parking:7,brideRoom:7,flow:7,service:7,exclusive:7,ceremony:'확인 필요',interval:'',capacity:'',visitDate:'',pros:'',cons:'',memo:''}}
+function loadHalls(){let d=JSON.parse(localStorage.getItem(K)||'null');if(Array.isArray(d))return d;for(const k of oldKeys){let x=JSON.parse(localStorage.getItem(k)||'null');if(Array.isArray(x))return x}return[seed('셀럽앤어셈','강남권','밝은 홀'),seed('엘블레스','양재권','밝은 홀'),seed('노블발렌티 삼성','삼성역권','어두운 홀'),seed('상록아트홀','강남권','밝은 홀')]}
+let halls=loadHalls(),weights=JSON.parse(localStorage.getItem(WK)||'null')||{...defaults},profile=JSON.parse(localStorage.getItem(PK)||'null')||{prefHall:'bright',guestCount:200,maxBudget:27000000,priority:'food'},checks=JSON.parse(localStorage.getItem(CK)||'null')||{};
+function save(){localStorage.setItem(K,JSON.stringify(halls));localStorage.setItem(WK,JSON.stringify(weights));localStorage.setItem(PK,JSON.stringify(profile));localStorage.setItem(CK,JSON.stringify(checks))}
+function total(h){return num(h.totalCost)||num(h.venueCost)+num(h.guarantee)*num(h.mealPrice)}
+function costRange(){let a=halls.map(total).filter(Boolean);return{min:Math.min(...a),max:Math.max(...a)}}function low(v,min,max){if(!v)return 0;if(min===max)return 100;return 40+60*((max-v)/(max-min))}
+function score(h){let r=costRange(),s=0,w=0,c=total(h);if(c){s+=low(c,r.min,r.max)*num(weights.totalCost);w+=num(weights.totalCost)}for(const k of ['food','transport','atmosphere','parking','brideRoom','flow','service','exclusive']){let v=num(h[k]);if(v){s+=v*10*num(weights[k]);w+=num(weights[k])}}return w?s/w:0}
+function ranked(){return[...halls].map(h=>({...h,_score:score(h),_total:total(h)})).sort((a,b)=>b._score-a._score||a._total-b._total)}
+function toast(m){let t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+function switchTab(id){$$('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));$$('.panel').forEach(x=>x.classList.toggle('active',x.id===id));window.scrollTo({top:0,behavior:'smooth'})}$$('.tab').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+
+function allChecklistItems(id){let c=ensureCheck(id);return Object.values(c.groups).flat()}
+function ensureCheck(id){if(!checks[id])checks[id]={groups:Object.fromEntries(Object.entries(baseChecks).map(([g,a])=>[g,a.map((text,i)=>({id:g+i,text,done:false}))])),memo:''};return checks[id]}
+function overallCheckPct(){let all=halls.flatMap(h=>allChecklistItems(h.id));return all.length?Math.round(all.filter(x=>x.done).length/all.length*100):0}
+function renderDashboard(){let r=ranked(),p=r.map(x=>x._total).filter(Boolean);$('#count').textContent=halls.length;$('#top').textContent=r[0]?.name||'-';$('#min').textContent=p.length?shortWon(Math.min(...p)):'-';$('#checked').textContent=overallCheckPct()+'%';$('#rankList').innerHTML=r.length?r.map((h,i)=>`<div class="rank"><div class="rank-no">${i+1}</div><div><div class="rank-name">${esc(h.name)}</div><div class="rank-meta">${esc(h.location||'지역 미입력')} · ${esc(h.hallType||'-')} · ${h._total?shortWon(h._total):'비용 미입력'}</div></div><div class="score">${h._score.toFixed(1)}<small>100점</small></div></div>`).join(''):'<div class="empty">웨딩홀을 추가해 주세요.</div>'}
+function aiAnalysis(h,index){
+ let reasons=[],warn=[],bonus=0,c=h._total,g=num(profile.guestCount),budget=num(profile.maxBudget),cap=num(h.capacity)||num(h.guarantee);
+ if(profile.prefHall==='bright'&&String(h.hallType).includes('밝')){reasons.push('밝은 홀 선호와 잘 맞아요');bonus+=4}
+ if(profile.prefHall==='dark'&&String(h.hallType).includes('어두')){reasons.push('어두운 홀 선호와 잘 맞아요');bonus+=4}
+ if(num(h.food)>=8)reasons.push('식사 평점이 높은 편이에요'); else if(num(h.food)<=6)warn.push('식사 만족도를 시식으로 확인하세요');
+ if(num(h.transport)>=8)reasons.push('하객 교통이 좋은 편이에요'); else if(num(h.transport)<=6)warn.push('역에서 실제 이동 시간을 확인하세요');
+ if(g&&cap){if(cap>=g&&cap<=g+80)reasons.push(`${g}명 규모에 적당해요`);else if(cap<g)warn.push('예상 하객보다 수용 인원이 적을 수 있어요');else if(cap>g+120)warn.push('하객 수 대비 홀이 커 보일 수 있어요')}
+ if(budget&&c){if(c<=budget){reasons.push('설정한 예산 안에 들어와요');bonus+=3}else warn.push(`예산보다 약 ${shortWon(c-budget)} 높아요`)}
+ if(h.ceremony==='동시예식')warn.push('동시예식 식사·진행 방식을 직접 확인하세요');
+ if(num(h.parking)<=6)warn.push('주차 방식과 무료 시간을 확인하세요');
+ if(!reasons.length)reasons.push('추가 점수와 견적을 입력하면 추천이 더 정확해져요');
+ let adjusted=h._score+bonus+(profile.priority==='food'?(num(h.food)-7)*1.5:profile.priority==='transport'?(num(h.transport)-7)*1.5:profile.priority==='atmosphere'?(num(h.atmosphere)-7)*1.5:profile.priority==='cost'&&c&&budget?(budget-c)/budget*5:0);
+ let decision=adjusted>=85&&warn.length<=2?['계약 후보','good']:adjusted>=72?['추가 비교','wait']:['조건 확인','bad'];
+ return{reasons,warn,adjusted,decision}
+}
+function renderAI(){let r=ranked();$('#prefHall').value=profile.prefHall;$('#guestCount').value=profile.guestCount;$('#maxBudget').value=profile.maxBudget;$('#priority').value=profile.priority;$('#aiResults').innerHTML=r.length?r.map((h,i)=>{let a=aiAnalysis(h,i);return`<div class="ai-card"><div class="ai-head"><div><div class="sub">추천 ${i+1}순위 · 분석점수 ${a.adjusted.toFixed(1)}</div><div class="ai-name">${esc(h.name)}</div></div><span class="decision ${a.decision[1]}">${a.decision[0]}</span></div><div class="ai-cols"><div class="ai-box"><b>💗 추천 이유</b><ul>${a.reasons.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="ai-box"><b>⚠️ 확인할 점</b>${a.warn.length?`<ul>${a.warn.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'현재 입력 기준 큰 주의점은 없어요.'}</div></div><div class="actions"><button class="btn secondary small" onclick="openChecklist('${h.id}')">체크리스트 보기</button><button class="btn secondary small" onclick="editHall('${h.id}')">정보 수정</button></div></div>`}).join(''):'<div class="empty">추천할 웨딩홀이 없어요.</div>'}
+$('#analyzeBtn').onclick=()=>{profile={prefHall:$('#prefHall').value,guestCount:num($('#guestCount').value),maxBudget:num($('#maxBudget').value),priority:$('#priority').value};save();renderAI();toast('추천을 다시 분석했어요.')};
+
+function renderChecklist(){
+ let sel=$('#checkHall'),current=sel.value||halls[0]?.id;sel.innerHTML=halls.map(h=>`<option value="${h.id}">${esc(h.name)}</option>`).join('');if(current&&halls.some(h=>h.id===current))sel.value=current;
+ if(!halls.length){$('#checkGroups').innerHTML='<div class="empty">먼저 웨딩홀을 추가해 주세요.</div>';$('#checkProgress').textContent='0 / 0';return}
+ let c=ensureCheck(sel.value),items=Object.values(c.groups).flat(),done=items.filter(x=>x.done).length;$('#checkProgress').textContent=`${done} / ${items.length} (${Math.round(done/items.length*100)}%)`;
+ $('#checkGroups').innerHTML=Object.entries(c.groups).map(([g,a])=>`<div class="check-group"><h3>${esc(g)}</h3>${a.map(x=>`<label class="check-item ${x.done?'done':''}"><input type="checkbox" data-check="${x.id}" ${x.done?'checked':''}><span>${esc(x.text)}</span></label>`).join('')}</div>`).join('');
+ $('#tourMemo').value=c.memo||'';$$('[data-check]').forEach(el=>el.onchange=e=>{let item=Object.values(c.groups).flat().find(x=>x.id===e.target.dataset.check);item.done=e.target.checked;save();renderChecklist();renderDashboard()})
+}
+$('#checkHall').onchange=renderChecklist;$('#tourMemo').oninput=e=>{if(!$('#checkHall').value)return;ensureCheck($('#checkHall').value).memo=e.target.value;save()}
+$('#addCustomCheck').onclick=()=>{let id=$('#checkHall').value;if(!id)return;let text=prompt('추가할 체크 항목을 입력하세요.');if(!text)return;let c=ensureCheck(id);if(!c.groups['직접 추가'])c.groups['직접 추가']=[];c.groups['직접 추가'].push({id:'custom'+Date.now(),text,done:false});save();renderChecklist()}
+$('#resetChecklist').onclick=()=>{let id=$('#checkHall').value;if(!id||!confirm('이 웨딩홀의 체크 상태와 투어 메모를 초기화할까요?'))return;delete checks[id];save();renderChecklist();renderDashboard()}
+window.openChecklist=id=>{switchTab('checklist');setTimeout(()=>{$('#checkHall').value=id;renderChecklist()},0)}
+
+function renderCompare(){let r=ranked();if(!r.length){$('#compareTable').innerHTML='<div class="empty">비교할 홀이 없어요.</div>';return}let rows=[['종합 점수',h=>h._score.toFixed(1),'high','_score'],['예상 총비용',h=>won(h._total),'low','_total'],['식대',h=>won(h.mealPrice),'low','mealPrice'],['보증 인원',h=>h.guarantee?num(h.guarantee)+'명':'-','n','guarantee'],['교통',h=>num(h.transport)+'/10','high','transport'],['식사',h=>num(h.food)+'/10','high','food'],['홀 분위기',h=>num(h.atmosphere)+'/10','high','atmosphere'],['주차',h=>num(h.parking)+'/10','high','parking'],['신부대기실',h=>num(h.brideRoom)+'/10','high','brideRoom'],['동선',h=>num(h.flow)+'/10','high','flow'],['예식 방식',h=>esc(h.ceremony||'-'),'n','ceremony'],['예식 간격',h=>esc(h.interval||'-'),'n','interval'],['장점',h=>esc(h.pros||'-'),'n','pros'],['단점',h=>esc(h.cons||'-'),'n','cons'],['메모',h=>esc(h.memo||'-'),'n','memo']];let out='<div class="table-wrap"><table><thead><tr><th>항목</th>'+r.map(h=>`<th>${esc(h.name)}</th>`).join('')+'</tr></thead><tbody>';for(const [lab,fmt,dir,key] of rows){let vals=r.map(h=>num(h[key])).filter(Boolean),best=vals.length?(dir==='low'?Math.min(...vals):Math.max(...vals)):null;out+=`<tr><td>${lab}</td>`+r.map(h=>`<td class="${dir!=='n'&&num(h[key])&&num(h[key])===best?'best':''} ${['pros','cons','memo'].includes(key)?'long':''}">${fmt(h)}</td>`).join('')+'</tr>'}$('#compareTable').innerHTML=out+'</tbody></table></div>'}
+function renderCards(){let r=ranked();$('#hallCards').innerHTML=r.length?r.map(h=>`<div class="hall-card"><div class="hall-title"><b>${esc(h.name)}</b><span class="chip">${h._score.toFixed(1)}점</span></div><div class="chips"><span class="chip">${esc(h.location||'지역 미입력')}</span><span class="chip">${esc(h.hallType||'-')}</span><span class="chip">${esc(h.ceremony||'-')}</span></div><div class="kv"><div><b>예상 총비용</b>${won(h._total)}</div><div><b>보증 인원</b>${h.guarantee?num(h.guarantee)+'명':'-'}</div><div><b>식대</b>${won(h.mealPrice)}</div><div><b>체크 완료</b>${allChecklistItems(h.id).filter(x=>x.done).length}/${allChecklistItems(h.id).length}</div></div><div class="actions"><button class="btn secondary small" onclick="editHall('${h.id}')">수정</button><button class="btn secondary small" onclick="openChecklist('${h.id}')">체크</button><button class="btn danger small" onclick="deleteHall('${h.id}')">삭제</button></div></div>`).join(''):'<div class="empty">등록된 웨딩홀이 없어요.</div>'}
+function renderWeights(){$('#weights').innerHTML=Object.entries(wlabels).map(([k,l])=>`<div class="weight"><div class="weight-top"><span>${l}</span><span id="wv-${k}">${num(weights[k])}</span></div><input type="range" min="0" max="40" value="${num(weights[k])}" data-weight="${k}"></div>`).join('');$$('[data-weight]').forEach(e=>e.oninput=x=>{let k=x.target.dataset.weight;weights[k]=num(x.target.value);$('#wv-'+k).textContent=weights[k];save();renderAll(false)});$('#weightTotal').textContent=Object.values(weights).reduce((a,b)=>a+num(b),0)}
+function renderAll(w=true){renderDashboard();renderAI();renderChecklist();renderCompare();renderCards();if(w)renderWeights()}
+
+$('#calcCost').onclick=()=>{$('#totalCost').value=num($('#venueCost').value)+num($('#guarantee').value)*num($('#mealPrice').value)||''}
+$('#hallForm').onsubmit=e=>{e.preventDefault();let id=$('#editId').value,d={id:id||(crypto.randomUUID?crypto.randomUUID():Date.now()+''),name:$('#name').value.trim(),location:$('#location').value.trim(),hallType:$('#hallType').value,guarantee:$('#guarantee').value,mealPrice:$('#mealPrice').value,venueCost:$('#venueCost').value,totalCost:$('#totalCost').value,transport:$('#transport').value,food:$('#food').value,atmosphere:$('#atmosphere').value,parking:$('#parking').value,brideRoom:$('#brideRoom').value,flow:$('#flow').value,service:$('#service').value,exclusive:$('#exclusive').value,ceremony:$('#ceremony').value,interval:$('#interval').value,capacity:$('#capacity').value,visitDate:$('#visitDate').value,pros:$('#pros').value.trim(),cons:$('#cons').value.trim(),memo:$('#memo').value.trim()};if(!d.totalCost)d.totalCost=total(d)||'';halls=id?halls.map(h=>h.id===id?d:h):[...halls,d];save();resetForm();renderAll();switchTab('dashboard');toast(id?'수정했어요.':'추가했어요.')}
+function resetForm(){$('#hallForm').reset();$('#editId').value='';$('#formTitle').textContent='웨딩홀 정보 입력';['transport','food','atmosphere','parking','brideRoom','flow','service'].forEach(x=>$('#'+x).value=7);$('#exclusive').value=10}
+$('#resetForm').onclick=resetForm;window.editHall=id=>{let h=halls.find(x=>x.id===id);if(!h)return;Object.entries(h).forEach(([k,v])=>{let e=$('#'+k);if(e)e.value=v??''});$('#editId').value=id;$('#formTitle').textContent='웨딩홀 정보 수정';switchTab('add')}
+window.deleteHall=id=>{let h=halls.find(x=>x.id===id);if(!confirm(`${h?.name||'이 홀'}을 삭제할까요?`))return;halls=halls.filter(x=>x.id!==id);delete checks[id];save();renderAll()}
+$('#defaultWeights').onclick=()=>{weights={...defaults};save();renderAll();toast('기본값으로 바꿨어요.')}
+$('#pdfBtn').onclick=()=>{switchTab('compare');setTimeout(()=>window.print(),100)}
+$('#clearBtn').onclick=()=>{if(!confirm('전체 데이터를 삭제할까요?'))return;halls=[];checks={};save();renderAll()}
+$('#exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify({version:'6+',halls,weights,profile,checks},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='weddinghall-v6-plus-backup.json';a.click();URL.revokeObjectURL(a.href)}
+$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{try{let d=JSON.parse(await e.target.files[0].text());if(!Array.isArray(d.halls))throw 0;halls=d.halls;weights=d.weights||weights;profile=d.profile||profile;checks=d.checks||{};save();renderAll();toast('불러왔어요.')}catch{alert('올바른 백업 파일이 아니에요.')}e.target.value=''}
 save();renderAll();
 </script>
-</body>
-</html>
+</body></html>
